@@ -17,7 +17,7 @@
     <div id="container" class="w-140 mx-auto flex flex-col items-center">
       <!-- Headng and Search Section -->
       <header class="pt-8 flex flex-col items-center">
-        <h1 class="text-2xl text-[rgb(39,40,110)] font-bold">Today's Tasks</h1>
+        <h1 class="text-2xl text-(--primary-color) font-bold">Today's Tasks</h1>
         <h3 class="text-[#a3a1af]">
           <span>0</span>
           of
@@ -50,7 +50,7 @@
                 type="text"
                 name=""
                 id="searchInput"
-                class="outline-none caret-[rgb(39,40,110)] text-[rgb(39,40,110)]"
+                class="outline-none caret-[rgb(39,40,110)] text-(--primary-color)]"
               />
             </label>
           </form>
@@ -110,7 +110,7 @@
       </header>
 
       <!-- Task List Section -->
-      <section class="mt-4 font-bold text-[rgb(39,40,110)]">
+      <section class="mt-4 font-bold text-(--primary-color)">
         <ul id="taskList">
           <li
             class="w-100 px-4 py-2 bg-gray-100 rounded-2xl flex justify-between items-center gap-x-5 group/checkmark select-none cursor-pointer"
@@ -235,14 +235,14 @@
       </section>
 
       <!-- Popup Section -->
-      <div>
+      <div class="hidden ">
         <li
             class="w-100 px-4 py-2 bg-gray-100 rounded-2xl flex justify-between items-center gap-x-5 group/checkmark select-none cursor-pointer"
           >
             <label class="flex">
               <input type="checkbox" name="" class="peer sr-only" />
               <div
-                class="customCheckBox w-5 h-5 border-2 flex justify-center items-center border-gray-300 rounded-full peer-checked:border-0 peer-checked:bg-[rgb(39,40,110)] text-white peer-checked:blur-[0.3px] transition-all duration-200 cursor-pointer"
+                class="customCheckBox w-5 h-5 border-2 flex justify-center items-center border-gray-300 rounded-full peer-checked:border-0 peer-checked:bg-(--primary-color) text-white peer-checked:blur-[0.3px] transition-all duration-200 cursor-pointer"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -260,8 +260,8 @@
                 </svg>
               </div>
             </label>
-
-            <span class="grow group-has-checked/checkmark:text-gray-400 group-has-checked/checkmark:line-through"> We are currently writing the HTML </span>
+            <textarea name="" id="" rows="2" placeholder="What are we doing next?" class="grow text-(--primary-color) outline-0 font-bold resize-none"></textarea>
+            
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -287,15 +287,15 @@
 
       <!-- Plus Button/Add Task Section -->
       <div>
-        <button>
-          <svg
+        <button class="w-8 h-8 bg-(--primary-color) text-white rounded-full flex justify-center items-center absolute bottom-3 right-[33%]">
+          <svg 
             xmlns="http://www.w3.org/2000/svg"
             width="14"
             height="14"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
+            stroke-width="3"
             stroke-linecap="round"
             stroke-linejoin="round"
             class="lucide lucide-plus preview-icon"
