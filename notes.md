@@ -24,3 +24,14 @@ const API_URL = "https://api.something.com/api"
 
 
 
+
+## Add Task Feature
+
+We are going grap the text from the textarea input
+then, we are create an HTML Element
+append it to the UI on the UL
+
+
+
+
+

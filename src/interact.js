@@ -63,3 +63,6 @@ document.addEventListener('click', (event) => {
 //   if(event.target.classList.contains('lucide-trash') || event.target instanceof SVGPathElement ){
 //         console.log('A delete icon was clicked on')
 //     }
+
+
+export { taskList }
