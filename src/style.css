@@ -14,3 +14,8 @@
 /* input[type="checkbox"]:checked {
 
 } */
+
+
+.swipe-right {
+  @apply translate-x-full transition-all duration-200
+}

@@ -3,10 +3,7 @@ import { taskList } from "./interact.js";
 
 const  taskInput = document.querySelector('#textAreaInput')
 
-const tasks = []
-
-
-
+let tasks = []
 
 
 
@@ -17,26 +14,37 @@ taskInput.addEventListener('keyup', (event) => {
     }
 
     if(event.key === "Enter"){
+
+        if(taskInput.value.trim() === ""){
+            return;
+
+        }
+
         const task = taskInput.value;
         tasks.push(task)
+
+
+
         taskInput.value = "";
 
         //Create an element
         //Attach it to the UI
-        createTask(task)
+        updateUI()
 
-        console.log(tasks)
+
+        // console.log(tasks)
     }
 })
 
 
-function createTask(task){
+function createTask(task, index){
+    const taskId = `task-${index + 1}`
     const li = document.createElement('li')
 
     li.innerHTML = `
 
-         <li
-            class="w-100 px-4 py-2 bg-gray-100 rounded-2xl flex justify-between items-center gap-x-5 group/checkmark select-none cursor-pointer"
+         <li id="${taskId}"
+            class="w-100 px-4 py-2  bg-gray-100 rounded-2xl flex justify-between items-center gap-x-5 group/checkmark select-none cursor-pointer wrap-break-word"
           >
             <label class="flex">
               <input type="checkbox" name="" class="peer sr-only" />
@@ -85,6 +93,42 @@ function createTask(task){
     
     `
 
+    //Delete Task
+    li.querySelector('.lucide-trash').addEventListener('click', () => {
+
+        li.classList.add('swipe-right')
+        li.addEventListener('transitionend', ()=> {
+           deleteTask(index)
+        })
+        
+    })
+
     taskList.append(li)
 
 }
+
+
+
+
+function updateUI(){
+
+    taskList.innerHTML = "";
+
+    tasks.forEach( (task, index) => {
+        createTask(task, index) 
+    })
+
+}
+
+
+function deleteTask(index){
+    tasks = tasks.filter( (_, i) => {
+        return i !== index;
+    })
+
+    updateUI()
+}
+
+
+
+export { taskInput }

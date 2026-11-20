@@ -1,4 +1,4 @@
-
+import { taskInput } from "./handler.js"
 
 // DOM Selections
 const taskList = document.querySelector('#taskList')
@@ -7,10 +7,10 @@ const addTaskSection = document.querySelector('#addTaskPopup')
 
 
 
+
 //? Event Listeners
 // Event Delegation for the Parent Container
 taskList.addEventListener('click', (event) => {
-    // console.log(event)
 
     const li = event.target.closest('li')
     const trash = event.target.closest('.lucide-trash')
@@ -22,8 +22,7 @@ taskList.addEventListener('click', (event) => {
 
     // Delete Button
     if(event.target === trash || event.target instanceof SVGPathElement){
-        // li.remove()
-
+    
         return;
     }
     
@@ -38,11 +37,17 @@ taskList.addEventListener('click', (event) => {
         checkbox.checked = true
     }
     
+
+
 })
 
 addBtn.addEventListener('click', () => {
     addTaskSection.classList.toggle('hidden')
     addBtn.classList.toggle('rotate-45')
+
+    if(!addTaskSection.classList.contains('hidden')){
+        taskInput.focus()
+    }
 })
 
 
@@ -55,6 +60,7 @@ document.addEventListener('click', (event) => {
     }
 
      addTaskSection.classList.add('hidden')
+     addBtn.classList.toggle('rotate-45')
 })
 
 
