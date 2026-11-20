@@ -2,8 +2,8 @@
 
 // DOM Selections
 const taskList = document.querySelector('#taskList')
-
-
+const addBtn = document.querySelector('#addTaskBtn')
+const addTaskSection = document.querySelector('#addTaskPopup')
 
 
 
@@ -23,7 +23,7 @@ taskList.addEventListener('click', (event) => {
     // Delete Button
     if(event.target === trash || event.target instanceof SVGPathElement){
         // li.remove()
-        
+
         return;
     }
     
@@ -38,12 +38,24 @@ taskList.addEventListener('click', (event) => {
         checkbox.checked = true
     }
     
+})
 
+addBtn.addEventListener('click', () => {
+    addTaskSection.classList.toggle('hidden')
+    addBtn.classList.toggle('rotate-45')
 })
 
 
 
+document.addEventListener('click', (event) => {
+    // console.log(event.target)
 
+    if(addTaskSection.contains(event.target) || addBtn.contains(event.target)){
+       return;
+    }
+
+     addTaskSection.classList.add('hidden')
+})
 
 
 // Commented out

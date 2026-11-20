@@ -235,9 +235,9 @@
       </section>
 
       <!-- Popup Section -->
-      <div class="hidden ">
+      <div class="hidden transition-discrete transition-all duration-200" id="addTaskPopup">
         <li
-            class="w-100 px-4 py-2 bg-gray-100 rounded-2xl flex justify-between items-center gap-x-5 group/checkmark select-none cursor-pointer"
+            class=" w-100 px-4 py-2 bg-gray-100 rounded-2xl flex justify-between items-center gap-x-5 group/checkmark select-none cursor-pointer"
           >
             <label class="flex">
               <input type="checkbox" name="" class="peer sr-only" />
@@ -287,7 +287,7 @@
 
       <!-- Plus Button/Add Task Section -->
       <div>
-        <button class="w-8 h-8 bg-(--primary-color) text-white rounded-full flex justify-center items-center absolute bottom-3 right-[33%]">
+        <button id="addTaskBtn" class="w-8 h-8 bg-(--primary-color) text-white rounded-full flex justify-center items-center absolute bottom-3 right-[33%] transition-all duration-200">
           <svg 
             xmlns="http://www.w3.org/2000/svg"
             width="14"
