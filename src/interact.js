@@ -1,4 +1,4 @@
-import { taskInput } from "./handler.js"
+import { taskInput, tasks, updateUI } from "./handler.js"
 
 // DOM Selections
 const taskList = document.querySelector('#taskList')
@@ -36,8 +36,28 @@ taskList.addEventListener('click', (event) => {
     } else {
         checkbox.checked = true
     }
-    
 
+    const index = Number(li.id.split('-')[1]) - 1
+    tasks[index].isCompleted = !tasks[index].isCompleted
+
+    taskList.dispatchEvent(new Event('change', { bubbles: true }))
+
+    updateUI()
+
+})
+
+//task-1
+
+taskList.addEventListener('change', () => {
+    document.querySelector('#completed-tasks').textContent = taskList.querySelectorAll('input[type="checkbox"]:checked').length
+
+    // console.log(event.target)
+    // const li = event.target.closest('li')
+    // console.log(li)
+
+    // const index = Number(li.id.split('-')[1]) - 1
+
+    // tasks[index].isCompleted = !tasks[index].isCompleted
 
 })
 
