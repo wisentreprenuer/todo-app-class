@@ -1,9 +1,12 @@
 import { taskList } from "./interact.js";
 
 
+
 const  taskInput = document.querySelector('#textAreaInput')
+const completedElement = document.querySelector('')
 
 let tasks = []
+let numberOfTasks = tasks.length;
 
 
 
