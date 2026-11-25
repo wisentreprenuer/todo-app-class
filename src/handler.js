@@ -1,70 +1,58 @@
 import { taskList } from "./interact.js";
 
+const taskUL = document.querySelector("#taskList");
+const taskInput = document.querySelector("#textAreaInput");
+const completedElement = document.querySelector("#completed-tasks");
+const totalElement = document.querySelector("#total-tasks");
+const clearBtn = document.querySelector("#clearAllBtn");
 
-const taskUL = document.querySelector('#taskList')
-const  taskInput = document.querySelector('#textAreaInput')
-const completedElement = document.querySelector('#completed-tasks')
-const totalElement = document.querySelector('#total-tasks')
-
-
-
-let tasks = []
+let tasks = [];
 let numberOfTasks = tasks.length;
-let numberOfCompletedTasks = taskUL.querySelectorAll('input[type="checkbox"]:checked').length;
+let numberOfCompletedTasks = taskUL.querySelectorAll(
+  'input[type="checkbox"]:checked',
+).length;
 
-
-console.log(numberOfCompletedTasks)
-console.log(numberOfTasks)
-
+console.log(numberOfCompletedTasks);
+console.log(numberOfTasks);
 
 totalElement.textContent = numberOfTasks;
 completedElement.textContent = numberOfCompletedTasks;
 
+taskInput.addEventListener("keyup", (event) => {
+  if (event.key === "Enter" && event.shiftKey === true) {
+    return;
+  }
 
-taskInput.addEventListener('keyup', (event) => {
-
-    if(event.key === "Enter"  && event.shiftKey === true){
-        return;
+  if (event.key === "Enter") {
+    if (taskInput.value.trim() === "") {
+      return;
     }
 
-    if(event.key === "Enter"){
+    // const task = taskInput.value;
+    const task = {
+      text: taskInput.value,
+      isCompleted: false,
+    };
 
-        if(taskInput.value.trim() === ""){
-            return;
+    tasks.push(task);
 
-        }
+    taskInput.value = "";
 
-        // const task = taskInput.value;
-        const task = {
-          text: taskInput.value,
-          isCompleted: false
-        }
+    //Create an element
+    //Attach it to the UI
+    updateUI();
 
-        tasks.push(task)
+    // console.log(tasks)
+  }
+});
 
+function createTask(task, index) {
+  const taskId = `task-${index + 1}`;
+  const li = document.createElement("li");
+  const completed = task.isCompleted;
 
-        taskInput.value = "";
-
-        //Create an element
-        //Attach it to the UI
-        updateUI()
-
-
-        // console.log(tasks)
-    }
-})
-
-
-function createTask(task, index){
-    const taskId = `task-${index + 1}`
-    const li = document.createElement('li')
-    const completed = task.isCompleted
-
-
-    if(completed === true){
-
-
-      li.innerHTML = `
+  if (completed === true) {
+    li.innerHTML = `
 
          <li id="${taskId}"
             class="w-100 px-4 py-2  bg-gray-100 rounded-2xl flex justify-between items-center gap-x-5 group/checkmark select-none cursor-pointer wrap-break-word"
@@ -115,24 +103,22 @@ function createTask(task, index){
           </li>
       
       
-      `
+      `;
 
-       //Delete Task
-      li.querySelector('.lucide-trash').addEventListener('click', () => {
+    //Delete Task
+    li.querySelector(".lucide-trash").addEventListener("click", () => {
+      li.classList.add("swipe-right");
+      li.addEventListener("transitionend", () => {
+        deleteTask(index);
+      });
+    });
 
-          li.classList.add('swipe-right')
-          li.addEventListener('transitionend', ()=> {
-            deleteTask(index)
-          })
-          
-      })
+    taskList.append(li);
 
-    taskList.append(li)
+    return;
+  }
 
-      return;
-    }
-
-    li.innerHTML = `
+  li.innerHTML = `
 
          <li id="${taskId}"
             class="w-100 px-4 py-2  bg-gray-100 rounded-2xl flex justify-between items-center gap-x-5 group/checkmark select-none cursor-pointer wrap-break-word"
@@ -182,52 +168,61 @@ function createTask(task, index){
             </button>
           </li>
     
-    `
+    `;
 
-    //Delete Task
-    li.querySelector('.lucide-trash').addEventListener('click', () => {
+  //Delete Task
+  li.querySelector(".lucide-trash").addEventListener("click", () => {
+    li.classList.add("swipe-right");
+    li.addEventListener("transitionend", () => {
+      deleteTask(index);
+    });
+  });
 
-        li.classList.add('swipe-right')
-        li.addEventListener('transitionend', ()=> {
-           deleteTask(index)
-        })
-        
-    })
-
-    taskList.append(li)
-
+  taskList.append(li);
 }
 
+function updateUI() {
+  taskList.innerHTML = "";
 
+  tasks.forEach((task, index) => {
+    createTask(task, index);
+  });
 
+  numberOfTasks = tasks.length;
+  numberOfCompletedTasks = taskUL.querySelectorAll("[checked]").length;
+  console.log(numberOfCompletedTasks);
 
-function updateUI(){
-
-    taskList.innerHTML = "";
-
-    tasks.forEach( (task, index) => {
-        createTask(task, index) 
-    })
-
-    
-    numberOfTasks = tasks.length;
-    numberOfCompletedTasks = taskUL.querySelectorAll('[checked]').length
-    console.log(numberOfCompletedTasks)
-
-    completedElement.textContent = numberOfCompletedTasks
-    totalElement.textContent = numberOfTasks
-
+  completedElement.textContent = numberOfCompletedTasks;
+  totalElement.textContent = numberOfTasks;
 }
 
+function deleteTask(index) {
+  tasks = tasks.filter((_, i) => {
+    return i !== index;
+  });
 
-function deleteTask(index){
-    tasks = tasks.filter( (_, i) => {
-        return i !== index;
-    })
-
-    updateUI()
+  updateUI();
 }
 
+// Clear All Button functionality
+clearBtn.addEventListener("click", () => {
+  const delay = 60;
+  const duration = 200;
+  let totalTime;
 
+  taskList.querySelectorAll("li").forEach((task, index) => {
+    task.style.transition = `translate ${duration}ms ease-out ${delay * index}ms, opacity ${duration}ms ease-out ${delay * index}ms `;
+    task.classList.add("swipe-right");
+    task.style.opacity = "0";
+  });
 
-export { taskInput, tasks, updateUI }
+  totalTime = duration + (taskList.querySelectorAll("li").length - 1) * delay;
+  console.log(totalTime);
+
+  setTimeout(() => {
+    tasks = [];
+    updateUI();
+  }, totalTime);
+});
+
+export { taskInput, tasks, updateUI };

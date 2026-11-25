@@ -7,7 +7,6 @@ const addTaskSection = document.querySelector('#addTaskPopup')
 
 
 
-
 //? Event Listeners
 // Event Delegation for the Parent Container
 taskList.addEventListener('click', (event) => {
@@ -82,6 +81,8 @@ document.addEventListener('click', (event) => {
      addTaskSection.classList.add('hidden')
      addBtn.classList.toggle('rotate-45')
 })
+
+
 
 
 // Commented out

@@ -17,5 +17,5 @@
 
 
 .swipe-right {
-  @apply translate-x-full transition-all duration-200
+  @apply translate-x-100 transition-all duration-200
 }
